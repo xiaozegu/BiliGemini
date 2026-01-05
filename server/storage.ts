@@ -1,38 +1,27 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { db } from "./db";
+import { analysis, type Analysis, type InsertAnalysis } from "@shared/schema";
+import { desc } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  createAnalysis(analysis: InsertAnalysis): Promise<Analysis>;
+  getAnalyses(): Promise<Analysis[]>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async createAnalysis(insertAnalysis: InsertAnalysis): Promise<Analysis> {
+    const [result] = await db
+      .insert(analysis)
+      .values(insertAnalysis)
+      .returning();
+    return result;
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
-  }
-
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async getAnalyses(): Promise<Analysis[]> {
+    return db
+      .select()
+      .from(analysis)
+      .orderBy(desc(analysis.createdAt));
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
