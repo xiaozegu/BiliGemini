@@ -145,7 +145,7 @@ export default function Home() {
                 className="text-center py-20 bg-card rounded-3xl border border-dashed border-border"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary mb-4">
-                  <Video className="w-8 h-8 text-muted-foreground" />
+                  <History className="w-8 h-8 text-muted-foreground" />
                 </div>
                 <h3 className="text-lg font-medium text-foreground mb-2">暂无分析记录</h3>
                 <p className="text-muted-foreground max-w-sm mx-auto">
