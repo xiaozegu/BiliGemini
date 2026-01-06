@@ -1,51 +1,104 @@
-import { formatDistanceToNow } from "date-fns";
-import { FileText, Clock, ExternalLink } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import { format } from "date-fns";
+import { ChevronDown, ChevronUp, FileText, Sparkles, Video, ExternalLink } from "lucide-react";
+import { useState } from "react";
 import { type Analysis } from "@shared/schema";
-import { motion } from "framer-motion";
+import { Button } from "./ui/button";
 
-interface Props {
+interface AnalysisCardProps {
   analysis: Analysis;
-  onClick: () => void;
 }
 
-export function AnalysisCard({ analysis, onClick }: Props) {
+export function AnalysisCard({ analysis }: AnalysisCardProps) {
+  const [isTranscriptOpen, setIsTranscriptOpen] = useState(false);
+
   return (
     <motion.div
-      whileHover={{ y: -4 }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      onClick={onClick}
-      className="group cursor-pointer flex flex-col h-full bg-white rounded-2xl p-6 border border-border/50 shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 relative overflow-hidden"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-card rounded-3xl border border-border/50 shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300"
     >
-      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/5 to-transparent rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150 duration-500"></div>
-
-      <div className="flex-1">
-        <div className="flex items-center gap-2 text-xs font-semibold text-primary mb-3">
-          <span className="bg-primary/10 px-2.5 py-1 rounded-full border border-primary/20 flex items-center gap-1.5">
-             <FileText className="w-3 h-3" />
-             AI Summary
-          </span>
-        </div>
-        
-        <h3 className="text-lg font-bold font-display text-foreground leading-tight mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-          {analysis.title}
-        </h3>
-        
-        <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
-          {analysis.summary.replace(/[#*`]/g, '')}
-        </p>
-      </div>
-
-      <div className="pt-4 border-t border-border/40 flex items-center justify-between text-xs text-muted-foreground mt-2">
-        <div className="flex items-center gap-1.5">
-          <Clock className="w-3.5 h-3.5" />
-          <span>{formatDistanceToNow(new Date(analysis.createdAt || Date.now()), { addSuffix: true })}</span>
-        </div>
-        
-        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-primary font-medium">
-          View Details
-          <ExternalLink className="w-3 h-3" />
+      {/* Header Section */}
+      <div className="p-6 md:p-8 border-b border-border/50 bg-gradient-to-br from-card to-secondary/30">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+          <div className="space-y-2 flex-1">
+            <div className="flex items-center gap-2 text-primary font-medium text-sm">
+              <Video className="w-4 h-4" />
+              <span>Bilibili 视频</span>
+            </div>
+            <h3 className="text-xl md:text-2xl font-bold text-foreground leading-tight font-display">
+              {analysis.title}
+            </h3>
+            <a 
+              href={analysis.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              {analysis.url}
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+          <div className="text-xs font-medium text-muted-foreground bg-secondary/50 px-3 py-1.5 rounded-full whitespace-nowrap">
+            {analysis.createdAt ? format(new Date(analysis.createdAt), "yyyy-MM-dd HH:mm") : "Unknown Date"}
+          </div>
         </div>
       </div>
+
+      {/* Gemini Thoughts Section */}
+      <div className="p-6 md:p-8 bg-background">
+        <div className="flex items-center gap-2 mb-6 text-primary">
+          <div className="p-2 bg-primary/10 rounded-lg">
+            <Sparkles className="w-5 h-5" />
+          </div>
+          <h4 className="text-lg font-bold font-display">Gemini 的深度思考</h4>
+        </div>
+        
+        <div className="prose prose-slate prose-lg max-w-none 
+          prose-headings:font-display prose-headings:font-bold prose-headings:text-foreground
+          prose-p:text-muted-foreground prose-p:leading-relaxed
+          prose-strong:text-foreground prose-strong:font-semibold
+          prose-li:text-muted-foreground
+          prose-code:bg-muted prose-code:text-primary prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
+        ">
+          <ReactMarkdown>{analysis.summary}</ReactMarkdown>
+        </div>
+      </div>
+
+      {/* Collapsible Transcript Section */}
+      {analysis.originalContent && (
+        <div className="border-t border-border/50 bg-muted/30">
+          <button
+            onClick={() => setIsTranscriptOpen(!isTranscriptOpen)}
+            className="w-full flex items-center justify-between p-4 px-8 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+          >
+            <div className="flex items-center gap-2">
+              <FileText className="w-4 h-4" />
+              <span>查看原始字幕内容</span>
+            </div>
+            {isTranscriptOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </button>
+          
+          <AnimatePresence>
+            {isTranscriptOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="p-8 pt-0">
+                  <div className="bg-background rounded-xl p-4 border border-border text-sm text-muted-foreground font-mono leading-relaxed max-h-96 overflow-y-auto scrollbar-thin whitespace-pre-wrap">
+                    {analysis.originalContent}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
     </motion.div>
   );
 }

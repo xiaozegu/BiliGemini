@@ -1,83 +1,65 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Outfit:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-display: 'Plus Jakarta Sans', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-serif: 'Lora', serif;
-
-  /* Premium Bilibili-inspired Palette */
-  /* Pink accent but sophisticated */
-  --primary: 343 85% 65%;
-  --primary-foreground: 0 0% 100%;
-  
-  --secondary: 240 5% 96%;
-  --secondary-foreground: 240 10% 3.9%;
-  
-  --background: 0 0% 100%;
-  --foreground: 240 10% 3.9%;
+  /* Elegant Violet/Indigo Theme for AI vibe */
+  --background: 240 20% 99%;
+  --foreground: 224 71% 4%;
   
   --card: 0 0% 100%;
-  --card-foreground: 240 10% 3.9%;
+  --card-foreground: 224 71% 4%;
   
   --popover: 0 0% 100%;
-  --popover-foreground: 240 10% 3.9%;
+  --popover-foreground: 224 71% 4%;
   
-  --muted: 240 4.8% 95.9%;
-  --muted-foreground: 240 3.8% 46.1%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 210 20% 98%;
   
-  --accent: 343 85% 97%;
-  --accent-foreground: 343 85% 65%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 220.9 39.3% 11%;
+  
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 8.9% 46.1%;
+  
+  --accent: 262 83% 58%;
+  --accent-foreground: 210 20% 98%;
   
   --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-
-  --border: 240 5.9% 90%;
-  --input: 240 5.9% 90%;
-  --ring: 343 85% 65%;
+  --destructive-foreground: 210 20% 98%;
+  
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 262 83% 58%;
   
   --radius: 1rem;
 }
 
 @layer base {
+  * {
+    @apply border-border;
+  }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: var(--font-body);
-    background-image: 
-      radial-gradient(at 0% 0%, hsla(343, 85%, 98%, 1) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(280, 85%, 98%, 1) 0px, transparent 50%);
-    background-attachment: fixed;
+    font-family: 'Inter', 'Noto Sans SC', sans-serif;
   }
-  
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-    @apply font-bold tracking-tight text-foreground;
-  }
-
-  .prose {
-    font-family: var(--font-serif);
+    font-family: 'Outfit', 'Noto Sans SC', sans-serif;
   }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* Custom scrollbar for transcript */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
 }
-::-webkit-scrollbar-track {
-  @apply bg-secondary;
+.scrollbar-thin::-webkit-scrollbar-track {
+  @apply bg-transparent;
 }
-::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50 transition-colors;
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full;
 }
-
-/* Glassmorphism utilities */
-.glass-panel {
-  @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl shadow-black/5;
-}
-
-.glass-card {
-  @apply bg-white/80 backdrop-blur-md border border-border/50 shadow-sm hover:shadow-md transition-all duration-300;
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/30;
 }

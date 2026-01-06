@@ -1,13 +1,15 @@
 ## Packages
-react-markdown | For rendering the Gemini-generated summaries nicely
-framer-motion | For smooth page transitions and loading states
-date-fns | For formatting creation timestamps
-@tailwindcss/typography | For prose styling of the markdown content
+react-markdown | Rendering the markdown output from Gemini
+framer-motion | Smooth animations for UI transitions
+date-fns | Formatting dates for history items
+@tailwindcss/typography | Beautiful prose styling for the markdown content
+clsx | Conditional class merging
+tailwind-merge | Tailwind class merging utility
+lucide-react | Icons for the interface
 
 ## Notes
 Tailwind Config - extend fontFamily:
 fontFamily: {
-  display: ["var(--font-display)"],
-  body: ["var(--font-body)"],
-  serif: ["var(--font-serif)"],
+  sans: ["Inter", "Noto Sans SC", "sans-serif"],
+  display: ["Outfit", "Noto Sans SC", "sans-serif"],
 }

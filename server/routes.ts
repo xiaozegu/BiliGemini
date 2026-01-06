@@ -74,15 +74,16 @@ export async function registerRoutes(
       const { title, transcript } = await getBilibiliInfo(url);
       console.log(`Fetched video: ${title}, transcript length: ${transcript.length}`);
 
-      // Generate Summary with Gemini
+      // Generate Thoughts/Analysis with Gemini
       const prompt = `
-        You are an intelligent assistant.
-        Video Title: ${title}
-        Transcript/Content:
-        ${transcript.substring(0, 30000)} // Truncate to avoid huge context if needed, though Gemini 3 Pro has large context.
+        你是一个智能助手。
+        视频标题: ${title}
+        字幕/内容:
+        ${transcript.substring(0, 30000)}
 
-        Please provide a comprehensive summary of this video in Markdown format. 
-        Focus on the key points and takeaways.
+        请阅读以上视频内容，并分享你对这个视频的看法、分析和见解。
+        请不要仅仅总结视频内容，而是提供深入的点评和思考。
+        请用中文回答。
       `;
 
       const response = await ai.models.generateContent({
@@ -90,7 +91,7 @@ export async function registerRoutes(
         contents: [{ role: "user", parts: [{ text: prompt }] }],
       });
 
-      const summary = response.candidates?.[0]?.content?.parts?.[0]?.text || "Failed to generate summary.";
+      const summary = response.candidates?.[0]?.content?.parts?.[0]?.text || "无法生成分析。";
 
       const result = await storage.createAnalysis({
         url,
