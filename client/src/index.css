@@ -8,33 +8,97 @@
   /* Elegant Violet/Indigo Theme for AI vibe */
   --background: 240 20% 99%;
   --foreground: 224 71% 4%;
-  
+
   --card: 0 0% 100%;
   --card-foreground: 224 71% 4%;
-  
+  --card-border: 220 13% 91%;
+
+  --sidebar: 0 0% 100%;
+  --sidebar-foreground: 224 71% 4%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-primary: 262 83% 58%;
+  --sidebar-primary-foreground: 210 20% 98%;
+  --sidebar-accent: 262 83% 58%;
+  --sidebar-accent-foreground: 210 20% 98%;
+  --sidebar-ring: 262 83% 58%;
+
   --popover: 0 0% 100%;
   --popover-foreground: 224 71% 4%;
-  
+  --popover-border: 220 13% 91%;
+
   --primary: 262 83% 58%;
   --primary-foreground: 210 20% 98%;
-  
+
   --secondary: 220 14% 96%;
   --secondary-foreground: 220.9 39.3% 11%;
-  
+
   --muted: 220 14% 96%;
   --muted-foreground: 220 8.9% 46.1%;
-  
+
   --accent: 262 83% 58%;
   --accent-foreground: 210 20% 98%;
-  
+
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 20% 98%;
-  
+
   --border: 220 13% 91%;
   --input: 220 13% 91%;
   --ring: 262 83% 58%;
-  
+
+  --chart-1: 262 83% 58%;
+  --chart-2: 262 83% 58%;
+  --chart-3: 262 83% 58%;
+  --chart-4: 262 83% 58%;
+  --chart-5: 262 83% 58%;
+
   --radius: 1rem;
+}
+
+.dark {
+  --background: 224 71% 4%;
+  --foreground: 210 20% 98%;
+
+  --card: 224 71% 4%;
+  --card-foreground: 210 20% 98%;
+  --card-border: 217.2 32.6% 17.5%;
+
+  --sidebar: 224 71% 4%;
+  --sidebar-foreground: 210 20% 98%;
+  --sidebar-border: 217.2 32.6% 17.5%;
+  --sidebar-primary: 263.4 70% 50.4%;
+  --sidebar-primary-foreground: 210 20% 98%;
+  --sidebar-accent: 217.2 32.6% 17.5%;
+  --sidebar-accent-foreground: 210 20% 98%;
+  --sidebar-ring: 263.4 70% 50.4%;
+
+  --popover: 224 71% 4%;
+  --popover-foreground: 210 20% 98%;
+  --popover-border: 217.2 32.6% 17.5%;
+
+  --primary: 210 20% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 20% 98%;
+
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 20% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 20% 98%;
+
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 263.4 70% 50.4%;
+
+  --chart-1: 220 70% 50%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
 }
 
 @layer base {
