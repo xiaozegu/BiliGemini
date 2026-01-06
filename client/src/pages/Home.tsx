@@ -38,20 +38,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-secondary/30 pb-20">
-      {/* Hero Section */}
       <div className="bg-background border-b border-border/40 pb-12 pt-16 md:pt-24 px-4 relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none">
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 -left-24 w-72 h-72 bg-violet-500/5 rounded-full blur-3xl" />
-        </div>
-
         <div className="max-w-4xl mx-auto text-center relative z-10 space-y-6">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Powered by Google Gemini 3.0 Pro</span>
@@ -62,12 +51,9 @@ export default function Home() {
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
               一键提取视频字幕，让 AI 为您提炼核心观点与深度思考。
             </p>
-          </motion.div>
+          </div>
 
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <form
             onSubmit={handleSubmit}
             className="flex flex-col md:flex-row gap-3 max-w-2xl mx-auto mt-8 bg-card p-2 rounded-2xl shadow-xl shadow-black/5 border border-border/50"
           >
@@ -86,9 +72,8 @@ export default function Home() {
             <Button 
               type="submit" 
               size="lg" 
-              variant="gradient"
               disabled={isPending || !url}
-              className="md:w-auto w-full rounded-xl"
+              className="md:w-auto w-full rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
             >
               {isPending ? (
                 <>
@@ -99,21 +84,16 @@ export default function Home() {
                 "开始智能分析"
               )}
             </Button>
-          </motion.form>
+          </form>
           
           {isPending && (
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-sm text-muted-foreground animate-pulse"
-            >
+            <p className="text-sm text-muted-foreground animate-pulse">
               正在获取视频字幕并请求 Gemini 3.0 进行分析，请稍候...
-            </motion.p>
+            </p>
           )}
         </div>
       </div>
 
-      {/* Content Section */}
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="flex items-center gap-2 mb-8 text-foreground/80">
           <History className="w-5 h-5" />
@@ -127,23 +107,15 @@ export default function Home() {
             ))}
           </div>
         ) : (
-          <motion.div 
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="space-y-8"
-          >
+          <div className="space-y-8">
             {analyses && analyses.length > 0 ? (
               analyses.map((analysis) => (
-                <motion.div key={analysis.id} variants={item}>
+                <div key={analysis.id}>
                   <AnalysisCard analysis={analysis} />
-                </motion.div>
+                </div>
               ))
             ) : (
-              <motion.div 
-                variants={item}
-                className="text-center py-20 bg-card rounded-3xl border border-dashed border-border"
-              >
+              <div className="text-center py-20 bg-card rounded-3xl border border-dashed border-border">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary mb-4">
                   <History className="w-8 h-8 text-muted-foreground" />
                 </div>
@@ -151,9 +123,9 @@ export default function Home() {
                 <p className="text-muted-foreground max-w-sm mx-auto">
                   快去复制一个 Bilibili 视频链接，体验 AI 的深度解读能力吧！
                 </p>
-              </motion.div>
+              </div>
             )}
-          </motion.div>
+          </div>
         )}
       </div>
     </div>
