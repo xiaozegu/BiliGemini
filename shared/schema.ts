@@ -8,6 +8,8 @@ export const analysis = pgTable("analysis", {
   title: text("title").notNull(),
   summary: text("summary").notNull(),
   originalContent: text("original_content"), // The transcript
+  audienceInsight: text("audience_insight"), // New field for Audience Reaction Analysis
+  sessionId: text("session_id").notNull(), // New field for user sessions
   createdAt: timestamp("created_at").defaultNow(),
 });
 

@@ -52,7 +52,7 @@ export function AnalysisCard({ analysis }: AnalysisCardProps) {
           <div className="p-2 bg-primary/10 rounded-lg">
             <Sparkles className="w-5 h-5" />
           </div>
-          <h4 className="text-lg font-bold font-display">Gemini 的深度思考</h4>
+          <h4 className="text-lg font-bold font-display">Gemini 的深度解析</h4>
         </div>
         
         <div className="prose prose-slate prose-lg max-w-none 

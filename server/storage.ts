@@ -1,10 +1,10 @@
 import { db } from "./db";
 import { analysis, type Analysis, type InsertAnalysis } from "@shared/schema";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export interface IStorage {
   createAnalysis(analysis: InsertAnalysis): Promise<Analysis>;
-  getAnalyses(): Promise<Analysis[]>;
+  getAnalyses(sessionId: string): Promise<Analysis[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -16,10 +16,11 @@ export class DatabaseStorage implements IStorage {
     return result;
   }
 
-  async getAnalyses(): Promise<Analysis[]> {
+  async getAnalyses(sessionId: string): Promise<Analysis[]> {
     return db
       .select()
       .from(analysis)
+      .where(eq(analysis.sessionId, sessionId))
       .orderBy(desc(analysis.createdAt));
   }
 }
